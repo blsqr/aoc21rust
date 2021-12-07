@@ -30,7 +30,11 @@ fn load_input(day: u8, input_mode: &InputMode, input_dir: &str) -> String {
     };
 
     println!("Loading input from:\n  {:?}", &filepath);
-    fs::read_to_string(filepath).expect("Failed reading input file!")
+    let input =
+        fs::read_to_string(filepath).expect("Failed reading input file!");
+    println!("Loaded input of length {}.", input.len());
+
+    return input;
 }
 
 
@@ -38,13 +42,21 @@ fn main() {
     println!("\n--- Advent of Code 2021 ---");
 
     let args: Vec<String> = env::args().collect();
-    if args.len() != 3 {
-        panic!("Invalid number of arguments! Provide only [day] [part].");
+    if args.len() != 4 {
+        panic!(
+            "Invalid number of arguments! Need: [day] [part] [--test/--full]."
+        );
     }
 
     let day = args[1].parse::<u8>().unwrap();
     let part = args[2].parse::<u8>().unwrap();
-    let input_mode = InputMode::Test;
+    let input_mode = match &args[3] as &str {
+        "--test" => InputMode::Test,
+        "--full" => InputMode::Full,
+        _        => panic!(
+            "Invalid input mode {:?}, should be --test or --full!", &args[3]
+        ),
+    };
     let input_dir = "input";
 
     println!("---- Day {:02} --- Part {} ----\n", day, part);
@@ -55,8 +67,10 @@ fn main() {
 
     println!("\nNow computing solution ...");
     let solution = match funcs.get(&(day, part)) {
-        Some(func) => func(&input),
-        None => -1,
+        Some(func)  => func(&input),
+        None        => panic!(
+            "No solution function registered for this day or part!"
+        ),
     };
 
     println!("The solution is:  {}", solution);
