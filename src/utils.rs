@@ -5,6 +5,3 @@ pub enum InputMode {
     Full,
     Test,
 }
-
-/// Type alias for solution functions
-pub type SolutionFunc = fn(&String) -> i64;

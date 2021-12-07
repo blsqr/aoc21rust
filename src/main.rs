@@ -6,16 +6,19 @@ use std::fs;
 use std::path::Path;
 
 use utils::InputMode;
-use utils::SolutionFunc;
 
 mod solutions;
 mod utils;
 
+/// Type alias for solution functions
+pub type SolutionFunc = fn(&String, &InputMode) -> i64;
+
 /// Returns the hashmap of all available solution functions
 fn register_solution_functions() -> HashMap<(u8, u8), SolutionFunc> {
-    let mut funcs: HashMap<(u8, u8), fn(&String) -> i64> = HashMap::new();
+    let mut funcs: HashMap<(u8, u8), SolutionFunc> = HashMap::new();
 
     funcs.insert((1, 1), solutions::day01::solve_part1);
+    funcs.insert((1, 2), solutions::day01::solve_part2);
 
     return funcs;
 }
@@ -64,7 +67,7 @@ fn main() {
 
     println!("\nNow computing solution ...");
     let solution = match funcs.get(&(day, part)) {
-        Some(func) => func(&input),
+        Some(func) => func(&input, &input_mode),
         None => panic!("No solution function registered for this day or part!"),
     };
 
