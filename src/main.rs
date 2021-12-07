@@ -23,6 +23,9 @@ fn get_solution_functions() -> HashMap<(u8, u8), SolutionFunc> {
     funcs.insert((2, 1), solutions::day02::solve_part1);
     funcs.insert((2, 2), solutions::day02::solve_part2);
 
+    funcs.insert((3, 1), solutions::day03::solve_part1);
+    funcs.insert((3, 2), solutions::day03::solve_part2);
+
     return funcs;
 }
 
