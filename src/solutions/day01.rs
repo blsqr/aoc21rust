@@ -3,7 +3,8 @@
 use crate::InputMode;
 
 /// Implements the solution for part 1
-/// Simply count the number of times the depth increases in the input data
+///
+/// Simply counts the number of times the depth increases in the input data
 pub fn solve_part1(input: &String, _input_mode: &InputMode) -> i64 {
     let mut previous_depth = -1;
     let mut num_increasing = -1; // starting at -1 to account for first value
@@ -20,6 +21,7 @@ pub fn solve_part1(input: &String, _input_mode: &InputMode) -> i64 {
 }
 
 /// Implements the solution for part 2
+///
 /// Same as part 1 but with a three-measurement sliding window
 pub fn solve_part2(input: &String, input_mode: &InputMode) -> i64 {
     let mut sum_of_depths;

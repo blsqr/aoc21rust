@@ -13,8 +13,8 @@ mod utils;
 /// Type alias for solution functions
 pub type SolutionFunc = fn(&String, &InputMode) -> i64;
 
-/// Returns the hashmap of all available solution functions
-fn register_solution_functions() -> HashMap<(u8, u8), SolutionFunc> {
+/// Constructs a map of all available solution functions
+fn get_solution_functions() -> HashMap<(u8, u8), SolutionFunc> {
     let mut funcs: HashMap<(u8, u8), SolutionFunc> = HashMap::new();
 
     funcs.insert((1, 1), solutions::day01::solve_part1);
@@ -37,11 +37,16 @@ fn load_input(day: u8, _part: u8, input_mode: &InputMode, input_dir: &str) -> St
 
     println!("Loading input from:\n  {:?}", &filepath);
     let input = fs::read_to_string(filepath).expect("Failed reading input file!");
-    println!("Loaded input of length {}.", input.len());
+    println!(
+        "Loaded input. (Length: {}, Lines: {})",
+        input.len(),
+        input.matches("\n").count()
+    );
 
     return input;
 }
 
+/// Provide the CLI for invoking Advent of Code 2021 solution functions
 fn main() {
     println!("\n--- Advent of Code 2021 ---");
 
@@ -66,11 +71,11 @@ fn main() {
     let input = load_input(day, part, &input_mode, &input_dir);
 
     // Retrieve and invoke solution function
-    let funcs = register_solution_functions();
-
-    println!("\nNow computing solution ...");
-    let solution = match funcs.get(&(day, part)) {
-        Some(func) => func(&input, &input_mode),
+    let solution = match get_solution_functions().get(&(day, part)) {
+        Some(func) => {
+            println!("\nNow computing solution ...");
+            func(&input, &input_mode)
+        }
         None => panic!("No solution function registered for this day or part!"),
     };
 
