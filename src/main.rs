@@ -6,12 +6,13 @@ use std::fs;
 use std::path::Path;
 
 use utils::InputMode;
+use utils::SolutionFunc;
 
 mod solutions;
 mod utils;
 
 /// Returns the hashmap of all available solution functions
-fn register_solution_functions() -> HashMap<(u8, u8), fn(&String) -> i64> {
+fn register_solution_functions() -> HashMap<(u8, u8), SolutionFunc> {
     let mut funcs: HashMap<(u8, u8), fn(&String) -> i64> = HashMap::new();
 
     funcs.insert((1, 1), solutions::day01::solve_part1);
@@ -20,7 +21,7 @@ fn register_solution_functions() -> HashMap<(u8, u8), fn(&String) -> i64> {
 }
 
 /// Load the input file as an unprocessed string
-fn load_input(day: u8, input_mode: &InputMode, input_dir: &str) -> String {
+fn load_input(day: u8, _part: u8, input_mode: &InputMode, input_dir: &str) -> String {
     let cwd = &env::current_dir().unwrap();
     let dir = Path::new(cwd).join(input_dir);
     let filepath = match input_mode {
@@ -56,7 +57,7 @@ fn main() {
     let input_dir = "input";
 
     println!("---- Day {:02} --- Part {} ----\n", day, part);
-    let input = load_input(day, &input_mode, &input_dir);
+    let input = load_input(day, part, &input_mode, &input_dir);
 
     // Retrieve and invoke solution function
     let funcs = register_solution_functions();
