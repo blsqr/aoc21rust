@@ -1,4 +1,6 @@
 //! # Solutions for Day 03 - Binary Diagnostic
+//!
+//! For puzzle text, see https://adventofcode.com/2021/day/3
 
 use crate::InputMode;
 
@@ -36,7 +38,7 @@ fn read_into_binvec(input: &String) -> Vec<BinVec> {
     return input
         .lines()
         .map(|line| str2binvec(&line))
-        .collect::<Vec<BinVec>>()
+        .collect::<Vec<BinVec>>();
 }
 
 /// Counts the number of zero and one bits in a certain bit position
@@ -66,7 +68,11 @@ fn filter_by_bit_pattern(data: &Vec<BinVec>, predicate: fn(u32, u32) -> bool) ->
         let keep_bit = predicate(n0, n1);
         filtered.retain(|bin: &BinVec| bin[bit_pos] == keep_bit);
 
-        println!("  Bit position {:2}:  {} entries left.", bit_pos, filtered.len());
+        println!(
+            "  Bit position {:2}:  {} entries left.",
+            bit_pos,
+            filtered.len()
+        );
         bit_pos += 1;
     }
 
@@ -115,7 +121,6 @@ pub fn solve_part2(input: &String, _input_mode: &InputMode) -> i64 {
     let data = read_into_binvec(input);
     let num_cols = data.get(0).unwrap().len();
     println!("Got {} binary numbers of width {}.", data.len(), num_cols);
-
 
     // Iterate over columns and filter by numbers with the most common bit in
     // the respective position

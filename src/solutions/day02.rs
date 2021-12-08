@@ -1,4 +1,6 @@
 //! # Solutions for Day 02 - Dive!
+//!
+//! For puzzle text, see https://adventofcode.com/2021/day/2
 
 use crate::InputMode;
 

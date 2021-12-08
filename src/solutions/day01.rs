@@ -1,4 +1,6 @@
 //! # Solutions for Day 01 - Sonar Sweep
+//!
+//! For puzzle text, see https://adventofcode.com/2021/day/1
 
 use crate::InputMode;
 
