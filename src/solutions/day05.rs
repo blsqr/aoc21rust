@@ -177,12 +177,18 @@ fn mark_seafloor(lines: &Vec<Line>, incl_diag: bool, _input_mode: &InputMode) ->
 pub fn solve_part1(input: &String, _input_mode: &InputMode) -> i64 {
     println!("Parsing lines ...");
     let lines = input.lines().map(parse_line).collect::<Vec<Line>>();
-    mark_seafloor(&lines, false, _input_mode).iter().filter(|&h| *h >= 2).count() as i64
+    mark_seafloor(&lines, false, _input_mode)
+        .iter()
+        .filter(|&h| *h >= 2)
+        .count() as i64
 }
 
 /// Implements the solution for part 2
 pub fn solve_part2(input: &String, _input_mode: &InputMode) -> i64 {
     println!("Parsing lines ...");
     let lines = input.lines().map(parse_line).collect::<Vec<Line>>();
-    mark_seafloor(&lines, true, _input_mode).iter().filter(|&h| *h >= 2).count() as i64
+    mark_seafloor(&lines, true, _input_mode)
+        .iter()
+        .filter(|&h| *h >= 2)
+        .count() as i64
 }
