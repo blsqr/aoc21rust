@@ -20,19 +20,21 @@ pub fn solve_part1(input: &String, _input_mode: &InputMode) -> i64 {
 
     // Target position is simply the median
     let target_position = match n % 2 == 0 {
-        true => ((positions[n/2 - 1] + positions[n/2]) as f64 / 2.).round() as i64,
-        false => positions[n/2],
+        true => ((positions[n / 2 - 1] + positions[n / 2]) as f64 / 2.).round() as i64,
+        false => positions[n / 2],
     };
 
     // Compute fuel consumption
-    positions.iter().map(|pos| (pos - target_position).abs()).sum()
+    positions
+        .iter()
+        .map(|pos| (pos - target_position).abs())
+        .sum()
 }
-
 
 /// Computes the non-linear fuel consumption used in part 2
 fn compute_fuel(pos: i64, target: i64) -> i64 {
     let mut f = 0;
-    for n in 1..=(pos-target).abs() {
+    for n in 1..=(pos - target).abs() {
         f += n;
     }
     return f;
@@ -55,10 +57,13 @@ pub fn solve_part2(input: &String, _input_mode: &InputMode) -> i64 {
     let mut minimum_fuel_consumption = i64::MAX;
 
     // Try out in a range around the mean value
-    for target_pos in mean_pos - 10 ..= mean_pos + 10 {
+    for target_pos in mean_pos - 10..=mean_pos + 10 {
         minimum_fuel_consumption = cmp::min(
             minimum_fuel_consumption,
-            positions.iter().map(|pos| compute_fuel(*pos, target_pos)).sum()
+            positions
+                .iter()
+                .map(|pos| compute_fuel(*pos, target_pos))
+                .sum(),
         );
     }
 
